@@ -4,19 +4,20 @@ const submitBtn = document.getElementById("submit-btn");
 const eventContainer = document.getElementById("event-container")
 const eventAddressesArray = [];
 let eventCordinatesArray = [];
-const city = "Austin"
-const genre = ""
-const apiKey = "wy3QS9URmfZvHQ2lCwVKwAL3t4c4AkDc";
-const today = new Date();
-const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days in milliseconds
-const startDate = today.toISOString().slice(0, 10);
-const endDate = sevenDaysFromNow.toISOString().slice(0, 10);
-const queryUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${city}&startDateTime=${startDate}T00:00:00Z&endDateTime=${endDate}T00:00:00Z&classificationName=${genre}&attributes=images`;
 
 function getEvents() {
     //event.preventDefault();
     //const city = cityInput.value;
     //const genre = genreSelect.value;
+
+    const city = "Hollywood"
+    const genre = ""
+    const apiKey = "wy3QS9URmfZvHQ2lCwVKwAL3t4c4AkDc";
+    const today = new Date();
+    const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days in milliseconds
+    const startDate = today.toISOString().slice(0, 10);
+    const endDate = sevenDaysFromNow.toISOString().slice(0, 10);
+    const queryUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${city}&startDateTime=${startDate}T00:00:00Z&endDateTime=${endDate}T00:00:00Z&classificationName=${genre}&attributes=images`;
 
     fetch(queryUrl)
         .then(response => response.json())
@@ -33,7 +34,6 @@ function getEvents() {
                     continue;
                 }
                 addEventAddresses(event);
-                console.log(eventAddressesArray);
                 getEventCoordinates(eventAddressesArray, city);
                 console.log(eventCordinatesArray);
                 displayEvent(event);
@@ -110,7 +110,8 @@ function addEventAddresses(event) {
     }
 }
 
-//Get longitude and latitude based on venue name and default to city if venue is not recognized
+const GOOGLE_API_KEY = 'AIzaSyDiLlSmuGbSjo_oel7A1au_rubVEv450rg';
+
 function getEventCoordinates(eventAddressesArray, city) {
     for (let i = 0; i < eventAddressesArray.length; i++) {
         const eventAddress = eventAddressesArray[i];
