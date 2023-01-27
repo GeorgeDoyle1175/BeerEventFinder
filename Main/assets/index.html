@@ -4,11 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Materialize CSS styles link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>BrewVentMaster</title>
 </head>
 <body>
-    <div id="event-container"></div>
-      <script src='./js/script.js'></script>
-      <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <!-- Title section -->
+    <header id="hero" class="center-align">
+        <h1>BrewVentMaster</h1>
+        <h5> What's an event without beer? </h5>
+    </header>
+    <!-- Container for page content -->
+    <main class="container">
+
+        <!-- Intoduction to page -->
+        <section class="intro-container center-align">
+            <div class="leftside event-intro">
+                <h4>Events & Brews</h4>
+                <p>Here at BrewVentMaster, we aim to provide you with the best of live entertainment AND local brews. Searching for live events? Let's find ones near you! And while we're at it, we'll help you find the closest breweries to that event. Who could ask for anything more?</p>
+            </div>
+            <div id="icons" class="">
+                    <img class="brew-img" src="./images/brewery-img.jpg" alt="Beer at a Brewery">
+                
+                    <img class="event-img" src="./images/event-img.jpg" alt="Live concert image">
+            </div>
+        </section>
+
+        <!-- Form for city input and event genres -->
+        <section class="event-search">
+            <h4 class="center-align">Events and Brews Finder</h4>
+            <form id="search-form" class="col s12 center-align">
+                <div class="input-field-medium">
+                    <input id="city-input" type="text" placeholder="City">
+                </div>
+                <div class="event-categories">
+                    <button onclick="myFunction()" class="dropbtn">Event Category</button>
+                    <div id="dropdown" class="dropdown-content">
+                        <option value="option1">Music</option>
+                        <option value="option2">Sports</option>
+                        <option value="option3">Arts & Theater</option>
+                        <option value="option4">Film</option>
+                        <option value="option5">Festivals</option>
+                        <option value="option6">Family</option>
+                        <option value="option7">Comedy</option>
+                    </div>                      
+                </div>
+                <button class="btn waves-effect center-align waves-light" type="submit" name="action">
+                    <i class="material-icons">Find Events & Brews!</i>
+                </button>
+            </form>
+        </section>
+
+        <!-- Empty UL for search results -->
+        <div id="event-container" class="results">
+            <li class="min-height-300 center-align display-none">
+            
+            </li>
+        </div>
+
+    </main>
+    <footer class="black white-text">
+        <h6 class="center-align">Enjoy! &copy; Group 3</h6>
+    </footer>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src='./js/script.js'></script>
+<script src="./js/dropdownbtn.js"></script>
 </html>
+
+
+<!-- Figure out how to gradually shrink & wrap images -->
+<!-- Fix padding and color of buttons, match text -->
+<!-- HOW DO I DO A DROPDOWN MENUT -->
+<!-- all the styling for the sheet -->
+<!-- figure out how to center the container and use MATERIALIZE to space out the columns properly -->
+<!-- go through code and find redundancies and unnecessary classes -->
