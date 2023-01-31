@@ -90,6 +90,7 @@ function displayEvent(event, i) {
     else {
         eventImage = "";
     }
+   
 
     const eventBox = document.createElement("div");
     eventBox.classList.add(`event-box-${i}`); // add a unique class name
