@@ -77,6 +77,7 @@ function displayEvent(event) {
     else {
         eventImage = "";
     }
+   
 
     const eventBox = document.createElement("div");
     eventBox.classList.add("event-box");

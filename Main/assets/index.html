@@ -17,50 +17,62 @@
     </header>
     <!-- Container for page content -->
     <main class="container">
+        <div class="row">
+            <div id="icons" class="column">
+                <img class="brew-img" src="./images/brewery-img.jpg" alt="Beer at a Brewery">
+            </div>
+            <div class="column">
+                <img class="event-img" src="./images/event-img.jpg" alt="Live concert image">
+            </div>
+        </div>
 
         <!-- Intoduction to page -->
         <section class="intro-container center-align">
-            <div class="leftside event-intro">
+            
+            <div class="event-intro">
                 <h4>Events & Brews</h4>
                 <p>Here at BrewVentMaster, we aim to provide you with the best of live entertainment AND local brews. Searching for live events? Let's find ones near you! And while we're at it, we'll help you find the closest breweries to that event. Who could ask for anything more?</p>
             </div>
-            <div id="icons" class="">
-                    <img class="brew-img" src="./images/brewery-img.jpg" alt="Beer at a Brewery">
-                
-                    <img class="event-img" src="./images/event-img.jpg" alt="Live concert image">
-            </div>
+            
         </section>
 
         <!-- Form for city input and event genres -->
-        <section class="event-search">
-            <h4 class="center-align">Events and Brews Finder</h4>
-            <form id="search-form" class="col s12 center-align">
-                <div class="input-field-medium">
-                    <input id="city-input" type="text" placeholder="City">
+        <section class="event-search row">
+            <h4 class="form-title center-align">Events and Brews Finder</h4>
+            <form class="center-align col s12">
+                <div class="city-input row">
+                    <div class="input-field col s12 m6 offset-m3">
+                        <input id="city" type="text" class="validate">
+                        <label for="city">City</label>
+                    </div>
                 </div>
-                <div class="event-categories">
-                    <button onclick="myFunction()" class="dropbtn">Event Category</button>
-                    <div id="dropdown" class="dropdown-content">
-                        <option value="option1">Music</option>
-                        <option value="option2">Sports</option>
-                        <option value="option3">Arts & Theater</option>
-                        <option value="option4">Film</option>
-                        <option value="option5">Festivals</option>
-                        <option value="option6">Family</option>
-                        <option value="option7">Comedy</option>
-                    </div>                      
+                <div class="input-field event-categories col s12">
+                    
+                        <select id="dropdown-content">
+                            <option>Event Category</option>
+                            <option value="option1">Music</option>
+                            <option value="option2">Sports</option>
+                            <option value="option3">Arts & Theater</option>
+                            <option value="option4">Film</option>
+                            <option value="option5">Festivals</option>
+                            <option value="option6">Family</option>
+                            <option value="option7">Comedy</option>
+                        </select>
+                              
                 </div>
-                <button class="btn waves-effect center-align waves-light" type="submit" name="action">
-                    <i class="material-icons">Find Events & Brews!</i>
+                <button class="material-icons waves-effect center-align waves-light" type="submit" name="action">
+                    <i class="search-button">Find Events & Brews!</i>
                 </button>
             </form>
         </section>
 
         <!-- Empty UL for search results -->
-        <div id="event-container" class="results">
-            <li class="min-height-300 center-align display-none">
-            
-            </li>
+
+        <div id="brewery-container" class="col s12">
+
+        </div>
+        <div id="event-container" class="results col s12">
+             
         </div>
 
     </main>
@@ -74,10 +86,10 @@
 <script src="./js/dropdownbtn.js"></script>
 </html>
 
-
-<!-- Figure out how to gradually shrink & wrap images -->
-<!-- Fix padding and color of buttons, match text -->
-<!-- HOW DO I DO A DROPDOWN MENUT -->
+<!-- create 2 side-by-side containers for each event and brewery pair in results section-->
+<!-- how do I reduce events to only 40% of screen? tried Materialize, could not change it-->
+<!--how to increase click radius for city div?-->
 <!-- all the styling for the sheet -->
-<!-- figure out how to center the container and use MATERIALIZE to space out the columns properly -->
 <!-- go through code and find redundancies and unnecessary classes -->
+<!-- Standardize size for all images on results; how?? -->
+<!-- Add Google Fonts to styling -->
