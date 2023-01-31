@@ -4,19 +4,26 @@ const submitBtn = document.getElementById("submit-btn");
 const eventContainer = document.getElementById("event-container")
 const eventAddressesArray = [];
 let eventCordinatesArray = [];
+let cityButtonContainer = document.getElementById("city-button-container");
+let cityButtons = [];
+let breweryData = [];
 
 function getEvents() {
-    //event.preventDefault();
-    //const city = cityInput.value;
+    event.preventDefault();
+    const city = cityInput.value;
     //const genre = genreSelect.value;
-
-    const city = "Hollywood"
+    createCityButton(city);
     const genre = ""
     const apiKey = "wy3QS9URmfZvHQ2lCwVKwAL3t4c4AkDc";
     const today = new Date();
     const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days in milliseconds
     const startDate = today.toISOString().slice(0, 10);
     const endDate = sevenDaysFromNow.toISOString().slice(0, 10);
+
+    while (eventContainer.hasChildNodes()) {
+        eventContainer.removeChild(eventContainer.firstChild);
+    }
+
     const queryUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${city}&startDateTime=${startDate}T00:00:00Z&endDateTime=${endDate}T00:00:00Z&classificationName=${genre}&attributes=images`;
 
     fetch(queryUrl)
@@ -28,16 +35,22 @@ function getEvents() {
                 return eventDate >= today;
             });
             events = sortEventsByDateAscending(events);
+            const eventContainer = document.querySelector('.events-container');
             for (let i = 0; i < events.length; i++) {
                 const event = events[i];
                 if (!event.info) {
                     continue;
                 }
+                displayEvent(event, i);
                 addEventAddresses(event);
                 getEventCoordinates(eventAddressesArray, city);
-                console.log(eventCordinatesArray);
-                displayEvent(event);
+                console.log(eventAddressesArray);
+                breweryData = [];
+
             }
+
+            //appendBrewery(breweryData);
+
         })
         .catch(error => console.error(error))
 
@@ -63,7 +76,7 @@ function sortEventsByDateAscending(events) {
 }
 
 //Appends Date, Time of Event, Event Title, Description, Image and link to tickets to page
-function displayEvent(event) {
+function displayEvent(event, i) {
     const eventTitle = event.name;
     const eventDescription = event.info;
     const eventDate = new Date(event.dates.start.localDate);
@@ -79,7 +92,7 @@ function displayEvent(event) {
     }
 
     const eventBox = document.createElement("div");
-    eventBox.classList.add("event-box");
+    eventBox.classList.add(`event-box-${i}`); // add a unique class name
     eventContainer.appendChild(eventBox);
 
     const eventDateElement = document.createElement("p");
@@ -105,7 +118,7 @@ function displayEvent(event) {
 }
 //Add Event Addresses to empty array
 function addEventAddresses(event) {
-    if(event._embedded && event._embedded.venues && event._embedded.venues[0].name){
+    if (event._embedded && event._embedded.venues && event._embedded.venues[0].name) {
         eventAddressesArray.push(event._embedded.venues[0].name);
     }
 }
@@ -121,7 +134,11 @@ function getEventCoordinates(eventAddressesArray, city) {
                 if (data.results[0]) {
                     const lat = data.results[0].geometry.location.lat;
                     const lng = data.results[0].geometry.location.lng;
-                    eventCordinatesArray.push({ lat, lng });
+                    fetchBrew(lat, lng, breweryData, city);
+                    console.log(breweryData);
+                    //displayBreweryData(breweryData);
+                    eventCordinatesArray.push({lat,lng });
+
                 }
             })
             .catch(error => {
@@ -132,6 +149,7 @@ function getEventCoordinates(eventAddressesArray, city) {
                             if (cityData.results[0]) {
                                 const lat = cityData.results[0].geometry.location.lat;
                                 const lng = cityData.results[0].geometry.location.lng;
+                                fetchBrew(lat, lng, breweryData, city)
                                 eventCordinatesArray.push({ lat, lng });
                             }
                         })
@@ -145,6 +163,90 @@ function getEventCoordinates(eventAddressesArray, city) {
     }
 }
 
-getEvents();
 
-//submitBtn.addEventListener('click', getEvents);
+function createCityButton(city) {
+    // Check if a button with the same inner text already exists
+    var existingButton = document.querySelectorAll("button");
+    for (var i = 0; i < existingButton.length; i++) {
+        if (existingButton[i].innerHTML === city) {
+            return;
+        }
+    }
+
+    var button = document.createElement("button");
+    button.innerHTML = city;
+    button.setAttribute("class", "modern-btn");
+
+    // Store the city variable in local storage
+    localStorage.setItem("city", city);
+
+    // Create a container for the button
+    var container = document.createElement("div");
+    container.appendChild(button);
+
+    // Append the container to the body
+    document.body.appendChild(container);
+}
+
+//createCityButton(city);
+
+function checkCityArrayLength(arr) {
+    if (arr.length > 5) {
+        arr.splice(5, arr.length - 5);
+    }
+    return arr;
+}
+
+function fetchBrew(lat, lng, breweryData, city) {
+    const url =  "https://api.openbrewerydb.org/breweries?by_dist="+lat+","+lng+"&per_page=1";
+    fetch(url, {
+        cache: 'no-cache'
+    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            const brewery = {
+                phone: data[0].phone,
+                name: data[0].name,
+                street: data[0].street,
+                website: data[0].website_url
+            };
+
+            breweryData.push(brewery);
+            appendBrewery(breweryData, city);
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function appendBrewery(breweryData, city) {
+    let breweryList = document.getElementById("brewery-container");
+    let brewery = breweryData[0];
+    let breweryExists = false;
+    let breweryElements = breweryList.getElementsByTagName("li");
+
+    for (let i = 0; i < breweryElements.length; i++) {
+        let breweryElement = breweryElements[i];
+        if (breweryElement.innerHTML.includes(brewery.name)) {
+            breweryExists = true;
+            break;
+        }
+    }
+
+    if (!breweryExists) {
+        let breweryElement = document.createElement("li");
+        brewery.name = brewery.name || "";
+        brewery.street = brewery.street || "";
+        brewery.phone = brewery.phone || "";
+        brewery.website = brewery.website || "";
+        breweryElement.innerHTML = `<strong>${brewery.name}</strong> - ${brewery.street} - ${brewery.phone} - ${brewery.website}`;
+        breweryElement.setAttribute("class", city);
+        breweryList.appendChild(breweryElement);
+    }
+}
+
+
+submitBtn.addEventListener('click', getEvents);
