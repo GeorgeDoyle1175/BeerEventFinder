@@ -20,7 +20,10 @@ html {
    margin: auto;
    height: auto;
    margin-top: 2vh;
+   margin-top: 2vh;
    overflow-wrap: normal;
+   border: none;
+   padding: 2px;
    border: none;
    padding: 2px;
 }
@@ -30,6 +33,10 @@ html {
  color: #f3ad2c;
 }
 
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
 .column {
   float: left;
   width: 50%;
