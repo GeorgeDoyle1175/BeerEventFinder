@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Materialize CSS styles link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>BrewVentMaster</title>
+</head>
+<body>
+    <!-- Title section -->
+    <header id="hero" class="center-align">
+        <h1>BrewVentMaster</h1>
+        <h5> What's an event without beer? </h5>
+    </header>
+    <!-- Container for page content -->
+    <main class="container">
+        <div class="row">
+            <div id="icons" class="column">
+                <img class="brew-img" src="./images/brewery-img.jpg" alt="Beer at a Brewery">
+            </div>
+            <div class="column">
+                <img class="event-img" src="./images/event-img.jpg" alt="Live concert image">
+            </div>
+        </div>
+
+        <!-- Intoduction to page -->
+        <section class="intro-container center-align">
+
+            <div class="event-intro">
+
+            <div class="event-intro">
+                <h4>Events & Brews</h4>
+                <p>Here at BrewVentMaster, we aim to provide you with the best of live entertainment AND local brews. Searching for live events? Let's find ones near you! And while we're at it, we'll help you find the closest breweries to that event. Who could ask for anything more?</p>
+            </div>
+
+
+        </section>
+
+        <!-- Form for city input and event genres -->
+        <section class="event-search row">
+            <h4 class="form-title center-align">Events and Brews Finder</h4>
+            <form class="center-align col s12">
+                <div class="row">
+                    <div class="input-field col s12 m6 offset-m3">
+                        <input id="city-input" type="text" class="validate city-input">
+                        <label for="city">City</label>
+                    </div>
+                </div>
+                <div class="input-field event-categories col s12">
+
+                        <select id="dropdown-content">
+                            <option>Event Category</option>
+                            <option value="option1">Music</option>
+                            <option value="option2">Sports</option>
+                            <option value="option3">Arts & Theater</option>
+                            <option value="option4">Film</option>
+                            <option value="option5">Festivals</option>
+                            <option value="option6">Family</option>
+                            <option value="option7">Comedy</option>
+                        </select>
+
+                </div>
+                <button id="submit-btn" class="material-icons waves-effect center-align waves-light" type="submit" name="action">
+                    <i class="search-button">Find Events & Brews!</i>
+                </button>
+            </form>
+        </section>
+
+        <!-- Empty UL for search results -->
+
+        <div id="search-results-container" class="col s12">
+
+        </div>
+
+        <div id="brewery-container" class="col s12">
+
+        </div>
+        <div id="event-container" class="results col s12">
+
+        </div>
+
+    </main>
+    <footer class="black white-text">
+        <h6 class="center-align">Enjoy! &copy; Group 3</h6>
+    </footer>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src='./js/script.js'></script>
+<script src="./js/dropdownbtn.js"></script>
+</html>
+
+<!-- create 2 side-by-side containers for each event and brewery pair in results section-->
+<!-- how do I reduce events to only 40% of screen? tried Materialize, could not change it-->
+<!--how to increase click radius for city div?-->
+<!-- all the styling for the sheet -->
+<!-- go through code and find redundancies and unnecessary classes -->
+<!-- Standardize size for all images on results; how?? -->
+<!-- Add Google Fonts to styling -->
+<!-- Standardize size for all images on results; how?? -->
+<!-- Add Google Fonts to styling -->
